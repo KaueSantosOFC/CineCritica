@@ -1,0 +1,12 @@
+spring:
+  tmdb:
+    api-key: ${TMDB_API_KEY}
+  datasource:
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: 123
+  h2:
+    console:
+      enabled: true
+      settings:
+        web-allow-others: true
