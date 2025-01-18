@@ -5,11 +5,14 @@ import com.filmes.CineCritica.client.MovieResponseDto;
 import com.filmes.CineCritica.client.MovieSearchResponse;
 import com.filmes.CineCritica.entity.Movie;
 import com.filmes.CineCritica.repository.MovieRepository;
+import org.apache.coyote.BadRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,9 +33,26 @@ public class MovieService {
     }
 
     public Movie saveMovieById(Long idExterno){
-        MovieResponseDto responseDto = movieApiClient.getMovieDetails(idExterno,apiKey,"pt-BR");
-        Movie movieResponse = convertToEntity(responseDto);
-       return movieRepository.save(movieResponse);
+        System.out.println("ID recebido: " + idExterno);
+
+        Optional<Movie> existingMovie = movieRepository.findByIdMovieApi(idExterno);
+        if (existingMovie.isPresent()){
+            return existingMovie.get();
+        }
+            // Busca os detalhes do filme
+            MovieResponseDto responseDto = movieApiClient.getMovieDetails(idExterno,apiKey,"pt-BR");
+            System.out.println("Response DTO: " + responseDto);
+
+            // Converte para a entidade Movie
+            Movie movieResponse = convertToEntity(responseDto);
+            System.out.println("Converted Movie Entity: " + movieResponse);
+
+            // Salva no repositório
+            Movie movieSaved = movieRepository.save(movieResponse);
+            System.out.println("Saved Movie: " + movieSaved);
+
+            return movieSaved;
+
     }
 
     private Movie convertToEntity (MovieResponseDto dto){

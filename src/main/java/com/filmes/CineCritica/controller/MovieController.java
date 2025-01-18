@@ -1,11 +1,12 @@
 package com.filmes.CineCritica.controller;
 
-import com.filmes.CineCritica.client.MovieResponseDto;
 import com.filmes.CineCritica.entity.Movie;
+import com.filmes.CineCritica.repository.MovieRepository;
 import com.filmes.CineCritica.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -14,20 +15,38 @@ import java.util.List;
 public class MovieController {
     @Autowired
     private MovieService movieService;
+    @Autowired
+    private MovieRepository movieRepository;
 
-    @GetMapping("/{title}")
+    //Retorna JSON
+    @GetMapping("/api/{title}")
     public ResponseEntity<List<Movie>> getMoviesByTitle(@PathVariable String title) {
         List<Movie> movies = movieService.getMoviesByTitle(title);
         return ResponseEntity.ok(movies);
     }
-    @GetMapping("/save/{idExterno}")
-    public ResponseEntity<Movie> saveMovieByid(@PathVariable Long idExterno) {
-        Movie movieSaved = movieService.saveMovieById(idExterno);
-        return ResponseEntity.ok(movieSaved);
+
+    //Retorna JSON
+    @GetMapping("/api/save/{idExterno}")
+    public ResponseEntity<String> saveMovieByid(@PathVariable Long idExterno) {
+        boolean isNew = movieRepository.findByIdMovieApi(idExterno).isPresent();
+        if (!isNew) {
+            Movie movieSaved = movieService.saveMovieById(idExterno);
+            return ResponseEntity.ok("Filme salvo com sucesso: " + movieSaved.getTitle());
+        }
+        else {
+            Movie movieExists = movieRepository.findByIdMovieApi(idExterno).get();
+            return ResponseEntity.ok("Filme já existente: " + movieExists.getTitle());
+        }
     }
 
-//    @PostMapping
-//    public ResponseEntity<Movie> saveMovie(@RequestBody Movie movie) {
-//        return ResponseEntity.ok(movieService.saveMovie(movie));
-//    }
+    // Renderiza página HTML
+    @GetMapping
+    public ModelAndView getMoviesByTitlePage(@RequestParam String title) {
+        List<Movie> movies = movieService.getMoviesByTitle(title);
+        ModelAndView mv = new ModelAndView("index");
+        mv.addObject("movies", movies);
+        return mv;
+    }
+
+
 }

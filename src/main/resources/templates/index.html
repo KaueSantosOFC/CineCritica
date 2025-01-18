@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Movie Tracker</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div id="Menu Principal">
+    <h1>CineCritica</h1>
+    <button onclick="saveMovie(299536)">Salvar Filme</button>
+    <h2>Digite o nome do Filme que deseja adicionar.</h2>
+    <form method="get" th:action="@{/movies}">
+        <input type="text" name="title" placeholder="Digite o nome do filme" required>
+        <button type="submit">Buscar</button>
+    </form>
+    <div id="Exibir">
+        <h2>Resultados:</h2>
+        <div th:each="movie : ${movies}">
+            <div>
+                <img th:src="'https://image.tmdb.org/t/p/w500' + ${movie.posterPath}">
+                <h3 th:text="${movie.title}">Titulo</h3>
+                <p th:text="${movie.overview}">Sinopse</p>
+                <p th:text="${movie.voteAverage}">0</p>
+
+                <button type="button" th:onclick="'saveMovie(' + ${movie.idMovieApi} + ')'">Salvar</button>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function saveMovie(idExterno) {
+        fetch(`/movies/api/save/${idExterno}`, { method: 'GET' })
+            .then(response => response.text())
+    .then(message => {
+        alert(message);
+    })
+    .catch(error => {
+        console.error("Erro ao salvar o filme:", error);
+    });
+    }
+</script>
+</body>
+</html>
