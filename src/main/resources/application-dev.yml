@@ -10,3 +10,6 @@ spring:
       enabled: true
       settings:
         web-allow-others: true
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html

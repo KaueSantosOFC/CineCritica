@@ -27,7 +27,7 @@ public class MovieController {
 
     //Retorna JSON
     @GetMapping("/api/save/{idExterno}")
-    public ResponseEntity<String> saveMovieByid(@PathVariable Long idExterno) {
+    public ResponseEntity<String> saveMovieById(@PathVariable Long idExterno) {
         boolean isNew = movieRepository.findByIdMovieApi(idExterno).isPresent();
         if (!isNew) {
             Movie movieSaved = movieService.saveMovieById(idExterno);
@@ -39,13 +39,19 @@ public class MovieController {
         }
     }
 
-    // Renderiza página HTML
+    // Renderiza o index.html
     @GetMapping
     public ModelAndView getMoviesByTitlePage(@RequestParam String title) {
         List<Movie> movies = movieService.getMoviesByTitle(title);
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("movies", movies);
         return mv;
+    }
+
+    //Renderiza o mymovies.html
+    @GetMapping("/meus-filmes")
+    public ModelAndView myMoviesPage() {
+        return new ModelAndView("mymovies");
     }
 
 

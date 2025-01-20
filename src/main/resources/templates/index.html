@@ -3,33 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Movie Tracker</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>cineCritica</title>
+    <link rel="stylesheet" th:href="@{css/style.css}">
 </head>
 <body>
-<div id="Menu Principal">
+
+<ul>
+    <li><a href="#" style="text-decoration:underline;">Pesquisar Filmes</a></li>
+    <li><a th:href="@{/movies/meus-filmes}">Meus Filmes</a></li>
+</ul>
+<div id="main">
     <h1>CineCritica</h1>
-    <button onclick="saveMovie(299536)">Salvar Filme</button>
-    <h2>Digite o nome do Filme que deseja adicionar.</h2>
+    <h3>Digite o nome do Filme que deseja adicionar.</h3>
     <form method="get" th:action="@{/movies}">
-        <input type="text" name="title" placeholder="Digite o nome do filme" required>
+        <input type="text" name="title" placeholder="   Digite o nome do filme" required>
         <button type="submit">Buscar</button>
     </form>
-    <div id="Exibir">
+</div>
+    <div id="results">
         <h2>Resultados:</h2>
         <div th:each="movie : ${movies}">
-            <div>
-                <img th:src="'https://image.tmdb.org/t/p/w500' + ${movie.posterPath}">
-                <h3 th:text="${movie.title}">Titulo</h3>
-                <p th:text="${movie.overview}">Sinopse</p>
-                <p th:text="${movie.voteAverage}">0</p>
-
-                <button type="button" th:onclick="'saveMovie(' + ${movie.idMovieApi} + ')'">Salvar</button>
+            <div class="movie-card">
+                <img  class="movie-poster" th:src="'https://image.tmdb.org/t/p/w500' + ${movie.posterPath}">
+                <div class="movie-info">
+                    <h2 th:text="${movie.title}">Titulo</h2>
+                    <p th:text="${movie.overview}">Sinopse</p>
+                    <p style="display:flex;"><img src="/images/rate-icon.svg" style="width:36px;"> <span th:text="${movie.voteAverage}"> 0</span></p>
+                    <button type="button"  class="save-button" th:onclick="'saveMovie(' + ${movie.idMovieApi} + ')'">Salvar</button>
+                </div>
 
             </div>
         </div>
     </div>
-</div>
+
 <script>
     function saveMovie(idExterno) {
         fetch(`/movies/api/save/${idExterno}`, { method: 'GET' })

@@ -24,6 +24,7 @@ public class MovieService {
     @Value("${tmdb.api-key}")
     private String apiKey;
 
+    //Utiliza da Api externa, buscando o filme pelo título.
     public List<Movie> getMoviesByTitle(String title){
         MovieSearchResponse response = movieApiClient.searchMovie(title, "pt-BR", apiKey);
         return response.getResults()
@@ -32,6 +33,7 @@ public class MovieService {
                 .collect(Collectors.toList());
     }
 
+    //Após ter feito a chamada de filmes pelo título, irá pegar o id externo armazenado na list acima, utilizará a Api externa para buscar os detalhes do filme e transformar em um objeto.
     public Movie saveMovieById(Long idExterno){
         System.out.println("ID recebido: " + idExterno);
 
@@ -55,6 +57,12 @@ public class MovieService {
 
     }
 
+    //Remove um filme pelo id do db.
+    public void removeMovieById(Long id) {
+        movieRepository.deleteById(id);
+    }
+
+    //Converte a entidade recebida para um objeto java.
     private Movie convertToEntity (MovieResponseDto dto){
         Movie movie = new Movie();
         movie.setTitle(dto.getTitle());

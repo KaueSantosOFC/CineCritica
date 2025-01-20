@@ -3,7 +3,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class MovieResponseDto {
 
-    @JsonProperty("original_title")
+    @JsonProperty("title")
     private String title;
     private String overview;
     @JsonProperty("poster_path")

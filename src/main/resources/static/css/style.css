@@ -1,0 +1,118 @@
+
+body {
+background-color: #f0f8ff;
+font-family: system-ui;
+margin: 0;
+}
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #0088ff;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #111;
+}
+
+#main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom:30px;
+}
+
+#main input {
+    height: 30px;
+    width: 230px;
+    border-radius: 25px;
+    border-color: black;
+}
+
+#main button {
+    margin-top: 15px;
+    background-color: #3ea532;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+#results {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+
+.movie-card {
+    display: flex;
+    flex-direction: row; /* Alinha a imagem e as informações lado a lado */
+    align-items: flex-start;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    max-width: 900px; /* Limita a largura para melhor aparência */
+}
+
+.movie-poster {
+    width: 200px;
+    height: auto;
+    border-radius: 4px;
+    margin-right: 15px;
+}
+
+.movie-info {
+    display: flex;
+    flex-direction: column; /* Organiza o conteúdo em coluna */
+    justify-content: space-between; /* Distribui os itens */
+    flex: 1;
+}
+
+.movie-info h2 {
+    margin: 0;
+    font-size: 1.4em;
+    color: #333;
+}
+
+.movie-info p {
+    margin: 5px 0;
+    font-size: 1.1em;
+    color: #666;
+}
+
+.save-button {
+    margin-top: 15px; /* Adiciona espaço acima do botão */
+    align-self: flex-start; /* Alinha o botão ao início do container */
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.save-button:hover {
+    background-color: #0056b3;
+}
