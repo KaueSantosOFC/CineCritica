@@ -24,9 +24,8 @@ li a {
   text-decoration: none;
 }
 
-/* Change the link color to #111 (black) on hover */
 li a:hover {
-  background-color: #111;
+  background-color: #004989;
 }
 
 #main {
@@ -115,4 +114,48 @@ li a:hover {
 
 .save-button:hover {
     background-color: #0056b3;
+}
+
+.remove-button {
+    margin-top: 15px; /* Adiciona espaço acima do botão */
+    align-self: flex-start; /* Alinha o botão ao início do container */
+    background-color: #9f0000;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.remove-button:hover {
+    background-color: #702424;
+}
+
+.review-button {
+    margin-top: 15px; /* Adiciona espaço acima do botão */
+    align-self: flex-start; /* Alinha o botão ao início do container */
+    background-color: #769f00;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.review-button:hover {
+background-color: #566823;
+}
+
+.note-section {
+    margin-top: 8px;
+}
+
+.note-input {
+    width: calc(100% - 24px);
+    padding: 8px;
+    margin-bottom: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
 }

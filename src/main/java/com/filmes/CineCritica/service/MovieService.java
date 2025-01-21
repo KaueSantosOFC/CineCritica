@@ -57,9 +57,19 @@ public class MovieService {
 
     }
 
+    //Retorna todos os filmes salvos no db.
+    public List<Movie> findAllMovies(){
+        return movieRepository.findAll();
+    }
     //Remove um filme pelo id do db.
     public void removeMovieById(Long id) {
         movieRepository.deleteById(id);
+    }
+
+    public void addReview(Long id, String review) {
+        Movie update = movieRepository.findById(id).orElseThrow(NullPointerException::new);
+        update.setMyReview(review);
+        movieRepository.save(update);
     }
 
     //Converte a entidade recebida para um objeto java.

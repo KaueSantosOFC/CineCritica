@@ -2,9 +2,77 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineCritica</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
-<h1>Hello world!</h1>
+<ul>
+    <li><a th:href="@{/}">Pesquisar Filmes</a></li>
+    <li><a th:href="@{/movies/meus-filmes}" style="text-decoration:underline;">Meus Filmes</a></li>
+</ul>
+<div id="results">
+    <h2>Minha Lista:</h2>
+    <div th:each="movie : ${movies}">
+        <div class="movie-card">
+            <img  class="movie-poster" th:src="'https://image.tmdb.org/t/p/w500' + ${movie.posterPath}">
+            <div class="movie-info">
+                <h2 th:text="${movie.title}">Titulo</h2>
+                <p th:text="${movie.overview}">Sinopse</p>
+                <p style="display:flex;align-items: center;"><img src="/images/rate-icon.svg" style="width:36px;">&ensp;Média do Público:&emsp;<span th:text="${movie.voteAverage}"> 0</span></p>
+                <p style="display:flex;align-items: center;"><img src="/images/rate-icon.svg" style="width:36px;">&ensp;Minha Nota: &emsp;<span th:text="${movie.myReview}"> 0</span></p>
+
+                <div class="button-section">
+                    <button type="button"  class="remove-button" th:onclick="'saveMovie(' + ${movie.id} + ')'">Remover</button>
+
+                    <button type="button"  class="review-button" onclick="showInputField(this)">Nota</button>
+                        <div class="note-section" style="display: none;">
+                            <input type="text" placeholder="Digite sua nota" class="note-input" />
+                            <button type="button" onclick="saveNote(this)" th:data-movie-id="${movie.id}">Salvar</button>
+                        </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function showInputField(button) {
+    const noteSection = button.nextElementSibling; // Obtém a seção da nota próxima ao botão
+    noteSection.style.display = noteSection.style.display === 'none' ? 'block' : 'none'; // Alterna a exibição
+}
+
+function saveNote(button) {
+    const noteInput = button.previousElementSibling; // Localiza a caixa de texto associada
+    const note = noteInput.value.trim();
+    const movieId = button.getAttribute('data-movie-id'); // Obtém o ID do filme
+
+    if (note && movieId) {
+        // Exemplo de envio para o backend
+        fetch(`/movies/api/addReview`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ movieId: parseInt(movieId), review: note })
+        })
+        .then(response => {
+            if (response.ok) {
+                location.reload();
+                alert('Nota salva com sucesso!');
+                noteInput.value = ''; // Limpa o campo de texto
+            } else {
+                throw new Error('Erro ao salvar a nota.');
+            }
+        })
+        .catch(error => console.error('Erro:', error));
+    } else {
+        alert('Por favor, insira uma nota válida.');
+    }
+}
+
+</script>
 </body>
 </html>

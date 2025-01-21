@@ -1,5 +1,6 @@
 package com.filmes.CineCritica.controller;
 
+import com.filmes.CineCritica.dto.ReviewRequestDto;
 import com.filmes.CineCritica.entity.Movie;
 import com.filmes.CineCritica.repository.MovieRepository;
 import com.filmes.CineCritica.service.MovieService;
@@ -39,6 +40,17 @@ public class MovieController {
         }
     }
 
+    @GetMapping("/api/listmovies")
+    public List<Movie> findAllMovies() {
+        return movieService.findAllMovies();
+    }
+
+    @PostMapping("/api/addReview")
+    public ResponseEntity<String> addReview(@RequestBody ReviewRequestDto reviewRequest) {
+        movieService.addReview(reviewRequest.getMovieId(), reviewRequest.getReview());
+        return ResponseEntity.ok("Nota salva com sucesso!");
+    }
+
     // Renderiza o index.html
     @GetMapping
     public ModelAndView getMoviesByTitlePage(@RequestParam String title) {
@@ -51,7 +63,10 @@ public class MovieController {
     //Renderiza o mymovies.html
     @GetMapping("/meus-filmes")
     public ModelAndView myMoviesPage() {
-        return new ModelAndView("mymovies");
+        List <Movie> movies = movieService.findAllMovies();
+        ModelAndView mv = new ModelAndView("myMovies");
+        mv.addObject("movies", movies);
+        return mv;
     }
 
 

@@ -9,7 +9,7 @@ public class MovieResponseDto {
     @JsonProperty("poster_path")
     private String posterPath;
     @JsonProperty("vote_average")
-    private Double voteAverage;
+    private String voteAverage;
     @JsonProperty("id")
     private Long idMovieApi;
 
@@ -37,11 +37,11 @@ public class MovieResponseDto {
         this.posterPath = posterPath;
     }
 
-    public Double getVoteAverage() {
+    public String getVoteAverage() {
         return voteAverage;
     }
 
-    public void setVoteAverage(Double voteAverage) {
+    public void setVoteAverage(String voteAverage) {
         this.voteAverage = voteAverage;
     }
 

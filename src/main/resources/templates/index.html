@@ -28,7 +28,7 @@
                 <div class="movie-info">
                     <h2 th:text="${movie.title}">Titulo</h2>
                     <p th:text="${movie.overview}">Sinopse</p>
-                    <p style="display:flex;"><img src="/images/rate-icon.svg" style="width:36px;"> <span th:text="${movie.voteAverage}"> 0</span></p>
+                    <p style="display:flex;align-items: center;"><img src="/images/rate-icon.svg" style="width:36px;">&ensp;Média do Público:&emsp;<span th:text="${movie.voteAverage}"> 0</span></p>
                     <button type="button"  class="save-button" th:onclick="'saveMovie(' + ${movie.idMovieApi} + ')'">Salvar</button>
                 </div>
 
