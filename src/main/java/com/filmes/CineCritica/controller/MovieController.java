@@ -51,6 +51,12 @@ public class MovieController {
         return ResponseEntity.ok("Nota salva com sucesso!");
     }
 
+    @DeleteMapping("/api/remove/{id}")
+    public ResponseEntity<String> removeMovie(@PathVariable Long id) {
+        movieService.removeMovieById(id);
+        return ResponseEntity.ok("Filme removido com sucesso!");
+    }
+
     // Renderiza o index.html
     @GetMapping
     public ModelAndView getMoviesByTitlePage(@RequestParam String title) {

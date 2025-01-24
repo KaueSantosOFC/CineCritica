@@ -1,0 +1,18 @@
+spring:
+  tmdb:
+    api-key: ${TMDB_API_KEY}
+  datasource:
+        url: jdbc:postgresql://${DBHOST}:${DBPORT}/${DBDATABASE}
+        username: ${DBUSER}
+        password: ${DBPASSWORD}
+        driver-class-name: org.postgresql.Driver
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
