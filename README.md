@@ -1,7 +1,7 @@
 # CineCrítica
 > Um sistema para gerenciar filmes assistidos e suas avaliações.
 
-CineCrítica é uma aplicação web desenvolvida em Java com Spring Boot. O sistema permite adicionar, visualizar, avaliar e excluir filmes assistidos. A interface foi construída com Thymeleaf e é totalmente responsiva para dispositivos móveis.
+CineCrítica é uma aplicação web desenvolvida em Java com Spring Boot. O sistema permite adicionar, visualizar, avaliar e excluir filmes assistidos atráves de uma api externa. A interface foi construída com Thymeleaf e é totalmente responsiva para dispositivos móveis.
 
 ---
 
@@ -46,6 +46,7 @@ Certifique-se de ter instalado:
 - Maven.
 - PostgreSQL.
 - Git.
+- Conta na TMDB para API.
 
 ### Clonando o repositório
 
@@ -226,4 +227,3 @@ O projeto está licenciado sob a [MIT License](LICENSE). Você pode usá-lo e mo
 ---
 
 Se tiver dúvidas ou problemas, abra uma issue no repositório!
-```
