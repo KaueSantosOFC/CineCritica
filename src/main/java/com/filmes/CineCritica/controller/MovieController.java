@@ -70,7 +70,7 @@ public class MovieController {
     @GetMapping("/meus-filmes")
     public ModelAndView myMoviesPage() {
         List <Movie> movies = movieService.findAllMovies();
-        ModelAndView mv = new ModelAndView("myMovies");
+        ModelAndView mv = new ModelAndView("mymovies");
         mv.addObject("movies", movies);
         return mv;
     }
