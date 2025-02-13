@@ -18,7 +18,7 @@
         <li><a th:href="@{/movies/meus-filmes}">Meus Filmes</a></li>
     </ul>
     <div class="flex flex-col items-center mt-10 md:mt-20 px-4">
-        <div id="main" class="bg-white p-6 md:p-10 rounded-lg shadow-lg w-full md:w-2/3 lg:w-1/2">
+        <div class="bg-white p-6 md:p-10 rounded-lg shadow-lg w-full md:w-2/3 lg:w-1/2">
             <div class="flex justify-center mb-6">
                 <img src="/images/logo.jpg" alt="Logo do CineCrítica" class="w-16 h-16 md:w-24 md:h-24">
             </div>
@@ -35,7 +35,7 @@
                 </form>
             </div>
             <h2 class="text-xl md:text-2xl font-semibold text-center mb-6">Resultados:</h2>
-            <div id="results" class="grid grid-cols-1 gap-6">
+            <div class="grid grid-cols-1 gap-6">
                 <div th:each="movie : ${movies}">
                     <div class="bg-gray-100 rounded-lg shadow-md overflow-hidden flex flex-col md:flex-row">
                         <div class="flex justify-center md:block">
