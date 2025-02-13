@@ -1,89 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CineCritica</title>
+    <link rel="icon" type="image/x-icon" href="/images/logo.ico">
     <link rel="stylesheet" th:href="@{/css/style.css}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="text/javascript" th:src="@{/js/script.js}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
+
 <body>
-<ul>
-    <li><a th:href="@{/}">Pesquisar Filmes</a></li>
-    <li><a th:href="@{/movies/meus-filmes}" style="text-decoration:underline;">Meus Filmes</a></li>
-</ul>
-<div id="results">
-    <h2>Minha Lista:</h2>
-    <div th:each="movie : ${movies}">
-        <div class="movie-card">
-            <img  class="movie-poster" th:src="'https://image.tmdb.org/t/p/w500' + ${movie.posterPath}">
-            <div class="movie-info">
-                <h2 th:text="${movie.title}">Titulo</h2>
-                <p th:text="${movie.overview}">Sinopse</p>
-                <p style="display:flex;align-items: center;"><img src="/images/rate-icon.svg" style="width:36px;">&ensp;Média do Público:&emsp;<span th:text="${movie.voteAverage}"> 0</span></p>
-                <p style="display:flex;align-items: center;"><img src="/images/rate-icon.svg" style="width:36px;">&ensp;Minha Nota: &emsp;<span th:text="${movie.myReview}"> 0</span></p>
-
-                <div class="button-section">
-                    <button type="button"  class="remove-button" th:onclick="'removeMovie(' + ${movie.id} + ')'">Remover</button>
-
-                    <button type="button"  class="review-button" onclick="showInputField(this)">Nota</button>
-                        <div class="note-section" style="display: none;">
-                            <input type="text" placeholder="Digite sua nota" class="note-input" />
-                            <button type="button" class="save-button" onclick="saveNote(this)" th:data-movie-id="${movie.id}">Salvar</button>
+    <ul>
+        <li><a th:href="@{/}">Pesquisar Filmes</a></li>
+        <li><a th:href="@{/movies/meus-filmes}" style="text-decoration:underline;">Meus Filmes</a></li>
+    </ul>
+    <div class="flex flex-col items-center mt-10 md:mt-20 px-4">
+        <div class="bg-white p-6 md:p-10 rounded-lg shadow-lg w-full md:w-2/3 lg:w-1/2">
+            <h2 class="text-xl md:text-2xl font-semibold text-center mb-6">Minha Lista:</h2>
+            <div id="results" class="grid grid-cols-1 gap-6">
+                <div th:each="movie : ${movies}">
+                    <div class="bg-gray-100 rounded-lg shadow-md overflow-hidden flex flex-col md:flex-row">
+                        <div class="flex justify-center md:block">
+                            <img class="w-full md:w-auto h-auto object-cover" style="width: 200px; height: 100%;"
+                                th:src="'https://image.tmdb.org/t/p/w500' + ${movie.posterPath}">
                         </div>
+                        <div class="movie-info">
+                            <h2 th:text="${movie.title}">Titulo</h2>
+                            <p th:text="${movie.overview}">Sinopse</p>
+                            <div>
+                                <p style="display:flex;align-items: center;">
+                                    <img src="/images/rate-icon.svg" style="width:36px;">&ensp;Média do Público:&emsp;<span th:text="${movie.voteAverage}"> 0</span>
+                                </p>
+                                <p style="display:flex;align-items: center;">
+                                    <img src="/images/rate-icon.svg" style="width:36px;">&ensp;Minha Nota: &emsp;<span th:text="${movie.myReview}"> 0</span>
+                                </p>
+                            </div>
+
+                            <div class="button-section">
+                                <button type="button" class="remove-button" th:onclick="'removeMovie(' + ${movie.id} + ')'">Remover</button>
+                                <button type="button" class="review-button" onclick="showInputField(this)">Nota</button>
+                                <div class="note-section" style="display: none;">
+                                    <input type="text" placeholder="Digite sua nota"
+                                        class="border-none rounded-l px-4 py-2 w-full md:w-80 focus:outline-none" />
+                                    <button type="button"
+                                        class="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600 focus:outline-none"
+                                        onclick="saveNote(this)" th:data-movie-id="${movie.id}">Salvar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-
             </div>
-
         </div>
     </div>
-</div>
-<script>
-    function removeMovie(id) {
-       fetch(`/movies/api/remove/${id}`, { method: 'DELETE' })
-           .then(response => response.text())
-   .then(message => {
-       location.reload();
-       alert(message);
-   })
-   .catch(error => {
-       console.error("Erro ao remover o filme:", error);
-   });
-   }
-
-   function showInputField(button) {
-   const noteSection = button.nextElementSibling; // Obtém a seção da nota próxima ao botão
-   noteSection.style.display = noteSection.style.display === 'none' ? 'block' : 'none'; // Alterna a exibição
-}
-
-function saveNote(button) {
-   const noteInput = button.previousElementSibling; // Localiza a caixa de texto associada
-   const note = noteInput.value.trim();
-   const movieId = button.getAttribute('data-movie-id'); // Obtém o ID do filme
-
-   if (note && movieId) {
-       fetch(`/movies/api/addReview`, {
-           method: 'POST',
-           headers: {
-               'Content-Type': 'application/json'
-           },
-           body: JSON.stringify({ movieId: parseInt(movieId), review: note })
-       })
-       .then(response => {
-           if (response.ok) {
-               location.reload();
-               alert('Nota salva com sucesso!');
-               noteInput.value = ''; // Limpa o campo de texto
-           } else {
-               throw new Error('Erro ao salvar a nota.');
-           }
-       })
-       .catch(error => console.error('Erro:', error));
-   } else {
-       alert('Por favor, insira uma nota válida.');
-   }
-}
-
-</script>
 </body>
+
 </html>

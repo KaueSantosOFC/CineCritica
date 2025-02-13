@@ -1,6 +1,6 @@
 
 body {
-background-color: #f0f8ff;
+background-color: #E5E7EB;
 font-family: system-ui;
 margin: 0;
 }
@@ -27,7 +27,7 @@ li a {
 li a:hover {
   background-color: #004989;
 }
-
+/*
 #main {
     display: flex;
     flex-direction: column;
@@ -53,13 +53,13 @@ li a:hover {
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
-
 #results {
     display: flex;
     flex-direction: column;
     align-items: center;
     flex-wrap: wrap;
 }
+*/
 
 
 .movie-card {
@@ -86,6 +86,7 @@ li a:hover {
     flex-direction: column; /* Organiza o conteúdo em coluna */
     justify-content: space-between; /* Distribui os itens */
     flex: 1;
+    padding: 24px;
 }
 
 .movie-info h2 {
