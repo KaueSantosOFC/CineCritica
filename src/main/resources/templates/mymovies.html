@@ -43,8 +43,8 @@
                                 <button type="button" class="remove-button" th:onclick="'removeMovie(' + ${movie.id} + ')'">Remover</button>
                                 <button type="button" class="review-button" onclick="showInputField(this)">Nota</button>
                                 <div class="note-section" style="display: none;">
-                                    <input type="text" placeholder="Digite sua nota"
-                                        class="border-none rounded-l px-4 py-2 w-full md:w-80 focus:outline-none" />
+                                    <input type="number" placeholder="Digite sua nota"
+                                        class="border-none rounded-l px-4 py-2 w-full md:w-80 focus:outline-none" min="0" max="10" />
                                     <button type="button"
                                         class="bg-blue-500 text-white px-4 py-2 rounded-r hover:bg-blue-600 focus:outline-none"
                                         onclick="saveNote(this)" th:data-movie-id="${movie.id}">Salvar

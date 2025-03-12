@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Login - CineCritica</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h2>Login</h2>
+
+<form th:action="@{/login}" method="post">
+    <div th:if="${param.error}">
+        <p style="color: red;">Usuário ou senha inválidos!</p>
+    </div>
+
+    <div th:if="${param.logout}">
+        <p style="color: green;">Logout realizado com sucesso!</p>
+    </div>
+
+    <label for="username">Usuário:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Senha:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Entrar</button>
+</form>
+
+<p>Não tem uma conta? <a href="/register">Cadastre-se aqui</a></p>
+</body>
+</html>

@@ -66,7 +66,7 @@ public class MovieService {
         movieRepository.deleteById(id);
     }
 
-    public void addReview(Long id, String review) {
+    public void addReview(Long id, int review) {
         Movie update = movieRepository.findById(id).orElseThrow(NullPointerException::new);
         update.setMyReview(review);
         movieRepository.save(update);

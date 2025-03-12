@@ -2,7 +2,7 @@ package com.filmes.CineCritica.dto;
 
 public class ReviewRequestDto {
     private Long movieId;
-    private String review;
+    private int review;
 
     public Long getMovieId() {
         return movieId;
@@ -12,11 +12,11 @@ public class ReviewRequestDto {
         this.movieId = movieId;
     }
 
-    public String getReview() {
+    public int getReview() {
         return review;
     }
 
-    public void setReview(String review) {
+    public void setReview(int review) {
         this.review = review;
     }
 }

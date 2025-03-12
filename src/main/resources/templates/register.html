@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Cadastro - CineCritica</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h2>Cadastro</h2>
+
+<form th:action="@{/register}" method="post" th:object="${user}">
+    <div th:if="${error}">
+        <p style="color: red;" th:text="${error}"></p>
+    </div>
+
+    <label for="username">Usuário:</label>
+    <input type="text" id="username" name="username" required>
+
+    <label for="password">Senha:</label>
+    <input type="password" id="password" name="password" required>
+
+    <button type="submit">Cadastrar</button>
+</form>
+
+<p>Já tem uma conta? <a href="/login">Faça login</a></p>
+</body>
+</html>

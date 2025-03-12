@@ -46,9 +46,9 @@ public class MovieController {
     }
 
     @PostMapping("/api/addReview")
-    public ResponseEntity<String> addReview(@RequestBody ReviewRequestDto reviewRequest) {
+    public ResponseEntity<Integer> addReview(@RequestBody ReviewRequestDto reviewRequest) {
         movieService.addReview(reviewRequest.getMovieId(), reviewRequest.getReview());
-        return ResponseEntity.ok("Nota salva com sucesso!");
+        return ResponseEntity.ok(200);
     }
 
     @DeleteMapping("/api/remove/{id}")
@@ -59,8 +59,8 @@ public class MovieController {
 
     // Renderiza o index.html
     @GetMapping
-    public ModelAndView getMoviesByTitlePage(@RequestParam String title) {
-        List<Movie> movies = movieService.getMoviesByTitle(title);
+    public ModelAndView getMoviesByTitlePage(@RequestParam(required = false) String title) {
+        List<Movie> movies = (title != null) ? movieService.getMoviesByTitle(title) : List.of();
         ModelAndView mv = new ModelAndView("index");
         mv.addObject("movies", movies);
         return mv;

@@ -13,7 +13,7 @@ public class Movie {
     //https://image.tmdb.org/t/p/w500(PosterPath) para retornar as imagens e ter no front
     private String posterPath;
     private String voteAverage;
-    private String myReview;
+    private int myReview;
     private Long idMovieApi;
 
     public Long getId() {
@@ -56,11 +56,11 @@ public class Movie {
         this.voteAverage = voteAverage;
     }
 
-    public String getMyReview() {
+    public int getMyReview() {
         return myReview;
     }
 
-    public void setMyReview(String myReview) {
+    public void setMyReview(int myReview) {
         this.myReview = myReview;
     }
 
